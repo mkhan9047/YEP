@@ -3,6 +3,7 @@ package project.books.com.yep.Activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,17 +15,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import com.pixplicity.multiviewpager.MultiViewPager;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.relex.circleindicator.CircleIndicator;
 import project.books.com.yep.Adapter.NavimenuListAdapter;
+import project.books.com.yep.Adapter.ViewPagerAdapter;
+import project.books.com.yep.Fragment.PagerFragment;
 import project.books.com.yep.Pojo.NavigationListPojo;
 import project.books.com.yep.R;
 
 public class MainActivity extends AppCompatActivity
          {
 
+             MultiViewPager viewPager;
              ListView naviList;
+             CircleIndicator indicator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +48,8 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         BoilNaviMenu();
-
+        BoilViewPager();
     }
 
     @Override
@@ -91,6 +99,21 @@ public class MainActivity extends AppCompatActivity
         NavimenuListAdapter adapter = new NavimenuListAdapter(this,R.layout.custom_listview,pojo);
 
         naviList.setAdapter(adapter);
+    }
 
+    private void BoilViewPager(){
+        viewPager = findViewById(R.id.pager);
+        indicator = findViewById(R.id.indicator);
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new PagerFragment());
+        fragments.add(new PagerFragment());
+        fragments.add(new PagerFragment());
+        fragments.add(new PagerFragment());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
+        viewPager.setAdapter(adapter);
+        viewPager.setPageMargin(15);
+
+        indicator.setViewPager(viewPager);
+        adapter.registerDataSetObserver(indicator.getDataSetObserver());
     }
 }
