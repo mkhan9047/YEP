@@ -49,21 +49,25 @@
     android:layout_marginTop="5dp"
     android:layout_gravity="center_horizontal"
     android:layout_height="wrap_content">
+
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/facebook"
         />
+
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/instagram"
         />
+
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/twitter"
         />
+
 </LinearLayout>
 
 </LinearLayout>

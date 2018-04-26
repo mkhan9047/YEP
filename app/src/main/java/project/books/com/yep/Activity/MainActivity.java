@@ -1,6 +1,7 @@
 package project.books.com.yep.Activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,8 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
 import project.books.com.yep.Adapter.NavimenuListAdapter;
@@ -41,6 +44,15 @@ public class MainActivity extends AppCompatActivity
              ListView naviList;
              CircleIndicator indicator;
              ViewPagerAdapter adapter;
+
+             //view pager auto scrolling init
+             int currentPage = 0;
+             Timer timer;
+             int ci=0;
+             final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
+             final long PERIOD_MS = 3000; // time in milliseconds between successive task executions
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +69,7 @@ public class MainActivity extends AppCompatActivity
 
         BoilNaviMenu();
         BoilViewPager();
+        ViewPagerScrolling();
 
     }
 
@@ -173,8 +186,33 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+
+        //atuo scrolling
+         ci=0;
+        java.util.Timer timer;
+        timer=new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                viewPager.post(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        viewPager.setCurrentItem(ci % adapter.getCount(),true);
+                        ci++;
+
+                    }
+                });
+            }
+        },800,3000);
     }
 
 
+private void ViewPagerScrolling(){
 
-         }
+
+}
+
+
+ }
