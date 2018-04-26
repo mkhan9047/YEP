@@ -20,9 +20,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         fragments.add(fragment);
 
     }
-    public ViewPagerAdapter(FragmentManager fm, List<Fragment> list) {
+    public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
-        fragments = list;
+
     }
 
     @Override
