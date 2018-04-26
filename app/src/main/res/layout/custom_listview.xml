@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        app:cardBackgroundColor="@color/main_transparent"
+        app:cardCornerRadius="5dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:layout_height="match_parent">
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/navi_list_icon"
+                android:layout_width="35dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_people_outline_black_24dp"
+               app:civ_border_overlay="true"
+                android:padding="3dp"
+                android:layout_height="35dp"
+                app:civ_border_width="1dp"
+                app:civ_circle_background_color="#FFFF"
+               />
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                android:textColor="#FFFF"
+                android:id="@+id/navi_list_text"
+                android:layout_marginStart="8dp"
+                android:text="True Story"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
