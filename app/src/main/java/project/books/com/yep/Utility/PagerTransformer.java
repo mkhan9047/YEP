@@ -9,7 +9,7 @@ import android.view.View;
  */
 
 public class PagerTransformer implements ViewPager.PageTransformer {
-    private float mScale = 0.5f;
+
     @Override
     public void transformPage(View page, float position) {
         if(position==0){
@@ -17,6 +17,7 @@ public class PagerTransformer implements ViewPager.PageTransformer {
             ViewCompat.setScaleY(page, 1);
         }
         else{
+            float mScale = 0.5f;
             ViewCompat.setScaleX(page, mScale);
             ViewCompat.setScaleY(page, mScale);
         }

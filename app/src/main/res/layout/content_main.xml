@@ -53,8 +53,11 @@
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:clickable="true"
+        android:id="@+id/facebook"
+        android:onClick="onFacebook"
         android:src="@drawable/facebook"
-        />
+        android:focusable="true" />
 
     <ImageView
         android:layout_width="40dp"
@@ -65,6 +68,7 @@
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:onClick="onTwitter"
         android:src="@drawable/twitter"
         />
 

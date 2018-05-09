@@ -1,13 +1,10 @@
 package project.books.com.yep.Activity;
-
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,12 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import com.pixplicity.multiviewpager.MultiViewPager;
-
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +43,15 @@ public class MainActivity extends AppCompatActivity
              CircleIndicator indicator;
              ViewPagerAdapter adapter;
 
-             //view pager auto scrolling init
-             int currentPage = 0;
-             Timer timer;
+             //timer
              int ci=0;
-             final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
-             final long PERIOD_MS = 3000; // time in milliseconds between successive task executions
+
+             //badge layout
+            public RelativeLayout badgeLayout;
+             TextView view1;
+             int count = 1;
+
+             ImageView facebook;
 
 
     @Override
@@ -60,6 +61,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        badgeLayout = findViewById(R.id.badge_layout3);
+        facebook = findViewById(R.id.facebook);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -73,7 +76,10 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    @Override
+
+
+
+             @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -85,9 +91,20 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        MenuItem item1 = menu.findItem(R.id.actionbar_item);
+        MenuItemCompat.setActionView(item1, R.layout.update_noticiation_count);
+        badgeLayout = (RelativeLayout) MenuItemCompat.getActionView(item1);
+       Button button = badgeLayout.findViewById(R.id.button3);
+       button.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Toast.makeText(getApplicationContext(), "notification showed", Toast.LENGTH_SHORT).show();
+               count = 0;
+               view1.setText(String.format("%d",count));
+           }
+       });
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -97,9 +114,9 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if(id==R.id.actionbar_item){
+
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -109,35 +126,34 @@ public class MainActivity extends AppCompatActivity
         naviList = findViewById(R.id.navigation_list);
 
         List<NavigationListPojo> pojo = new ArrayList<>();
-        pojo.add(new NavigationListPojo(R.drawable.ic_people_outline_black_24dp,"True Story"));
-        pojo.add(new NavigationListPojo(R.drawable.ic_people_outline_black_24dp,"Success Story"));
-        pojo.add(new NavigationListPojo(R.drawable.ic_people_outline_black_24dp,"Jokes"));
-        pojo.add(new NavigationListPojo(R.drawable.ic_people_outline_black_24dp,"Science"));
-        pojo.add(new NavigationListPojo(R.drawable.ic_people_outline_black_24dp,"Kids Story"));
-        pojo.add(new NavigationListPojo(R.drawable.ic_people_outline_black_24dp,"Entertainment"));
-        pojo.add(new NavigationListPojo(R.drawable.ic_people_outline_black_24dp,"Horror"));
-
+        pojo.add(new NavigationListPojo(R.drawable.true_story,"True Story"));
+        pojo.add(new NavigationListPojo(R.drawable.success_story,"Success Story"));
+        pojo.add(new NavigationListPojo(R.drawable.jokes,"Jokes"));
+        pojo.add(new NavigationListPojo(R.drawable.science,"Science"));
+        pojo.add(new NavigationListPojo(R.drawable.kid_story,"Kids Story"));
+        pojo.add(new NavigationListPojo(R.drawable.entiretenment,"Entertainment"));
+        pojo.add(new NavigationListPojo(R.drawable.horror,"Horror"));
+        pojo.add(new NavigationListPojo(R.drawable.advanture,"Advanture"));
+        pojo.add(new NavigationListPojo(R.drawable.mistry,"Mistry"));
         NavimenuListAdapter adapter = new NavimenuListAdapter(this,R.layout.custom_listview,pojo);
 
         naviList.setAdapter(adapter);
     }
 
     private void BoilViewPager(){
+
         viewPager = findViewById(R.id.pager);
         indicator = findViewById(R.id.indicator);
-
-
-
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", (Serializable) new FragmentPopulatePojo("True Story", R.drawable.cloudy));
         Fragment trueStory = new PagerFragment();
-     trueStory.setArguments(bundle);
+        trueStory.setArguments(bundle);
 
 
         Bundle bundle1 = new Bundle();
         bundle1.putSerializable("data", (Serializable) new FragmentPopulatePojo("Hot Story", R.drawable.hotsun));
         Fragment HotStory = new PagerFragment();
-     HotStory.setArguments(bundle1);
+        HotStory.setArguments(bundle1);
 
         Bundle bundle2 = new Bundle();
         bundle2.putSerializable("data", (Serializable) new FragmentPopulatePojo("Advanture", R.drawable.raining));
@@ -189,30 +205,38 @@ public class MainActivity extends AppCompatActivity
 
 
         //atuo scrolling
-         ci=0;
+         ci = 0;
         java.util.Timer timer;
         timer=new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+
                 viewPager.post(new Runnable() {
                     @Override
                     public void run() {
-
                         viewPager.setCurrentItem(ci % adapter.getCount(),true);
                         ci++;
-
                     }
                 });
             }
-        },800,3000);
+        },2000,3000);
     }
 
 
 private void ViewPagerScrolling(){
 
-
 }
 
 
- }
+  public void onFacebook(View view) {
+     view1 = badgeLayout.findViewById(R.id.badge_notification);
+    view1.setText(String.format("%d",count++));
+
+             }
+
+             public void onTwitter(View view) {
+                Intent in = new Intent(this, Catagory.class);
+                startActivity(in);
+             }
+         }

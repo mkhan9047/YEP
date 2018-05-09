@@ -9,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import project.books.com.yep.Activity.MainActivity;
 import project.books.com.yep.Pojo.FragmentPopulatePojo;
 import project.books.com.yep.R;
 
@@ -57,6 +59,7 @@ ImageView mainImage;
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(getActivity(),populatePojo.getTitle()+" Clicked",Toast.LENGTH_LONG).show();
+
                 }
             });
         }
